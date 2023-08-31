@@ -1,6 +1,6 @@
 ---====== Define spawner ======---
 
-local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/Source.lua"))()
+local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/check78/Endless-Doors-In-Doors/main/ModifiedSpawnerTest.lua"))()
 
 ---====== Create entity ======---
 
@@ -38,6 +38,7 @@ local entity = Spawner.createEntity({
 
 entity.Debug.OnEntitySpawned = function()
     print("Entity has spawned")
+    workspace.CurrentRooms[game.ReplicatedStorage.GameData.LatestRoom.Value]:WaitForChild("Door").ClientOpen:FireServer()
 end
 
 entity.Debug.OnEntityDespawned = function()
