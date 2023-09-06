@@ -1,45 +1,29 @@
-game.Lighting.MainColorCorrection.TintColor = Color3.fromRGB(212, 255, 0)
-game.Lighting.MainColorCorrection.Contrast = 0.3
-local tween = game:GetService("TweenService")
-tween:Create(game.Lighting.MainColorCorrection, TweenInfo.new(0.5), {Contrast = 0}):Play()
-local TweenService = game:GetService("TweenService")
-local TW = TweenService:Create(game.Lighting.MainColorCorrection, TweenInfo.new(0.5),{TintColor = Color3.fromRGB(255, 255, 255)})
-TW:Play()
-    local roast = Instance.new("Sound")
-    roast.Parent = workspace
-    roast.Name = "roast"
-    roast.SoundId = "rbxassetid://9125936117"
-    roast.Volume = 0.5
-    roast.Pitch = 3
-    roast:Play()
-    wait(0.6)
-    roast:Destroy()
-
 local Creator = loadstring(game:HttpGet("https://raw.githubusercontent.com/check78/Endless-Doors-In-Doors/main/ModifiedSpawnerTest.lua"))()
 
 -- Create entity
 
 local entity = Creator.createEntity({
     CustomName = "Death", -- Custom name of your entity
-    Model = "rbxassetid://14638237561", -- Can be GitHub file or rbxassetid
-    Speed = 193.5, -- Percentage, 100 = default Rush speed
-    DelayTime = 7.4, -- Time before starting cycles (seconds)
+    Model = "rbxassetid://14700398007", -- Can be GitHub file or rbxassetid
+    Speed = 200, -- Percentage, 100 = default Rush speed
+    DelayTime = 8, -- Time before starting cycles (seconds)
     HeightOffset = 5.1,
     CanKill = true,
     BreakLights = false,
-    KillRange = 50,
+    KillRange = 70,
     BackwardsMovement = false,
     FlickerLights = {
         false, -- Enabled
         2.5, -- Time (seconds)
     },
     Cycles = {
-        Min = 0,
-        Max = 1
+        Min = 1,
+        Max = 1,
+        WaitTime = 2,
     },
     CamShake = {
         true, -- Enabled
-        {14, 28, 0.1, 1}, -- Shake values (don't change if you don't know)
+        {20, 37, 0.08, 1}, -- Shake values (don't change if you don't know)
         100, -- Shake start distance (from Entity to you)
     },
     Jumpscare = {
