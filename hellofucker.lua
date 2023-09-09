@@ -227,7 +227,7 @@ tree.Parent = close
     move.Looped = true
 local vroom = TweenService:Create(move, TweenInfo.new(1),{Volume = 0.5})
     local distort = Instance.new("DistortionSoundEffect")
-    distort.Level = 0.684
+    distort.Level = 0.72
     distort.Parent = move
     distort.Enabled = true
 	move.RollOffMaxDistance = 2000
@@ -237,7 +237,7 @@ local vroom = TweenService:Create(move, TweenInfo.new(1),{Volume = 0.5})
     tree.Duty = 1
     tree.Frequency = 5
     tree.Parent = move
-    tree.Enabled = false
+    tree.Enabled = true
     local eq = Instance.new("EqualizerSoundEffect")
     eq.HighGain = -60
     eq.MidGain = 10
