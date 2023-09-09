@@ -194,14 +194,15 @@ ItemName.PrimaryPart.Sound:Destroy()
 ItemName.PrimaryPart.Close:Destroy()
 ItemName.PrimaryPart.Footsteps:Destroy()
 ItemName.PrimaryPart.Idle:Destroy()
-    local spawn = Instance.new("Sound")
-spawn.Parent = entityModel.PrimaryPart
-spawn.Name = "ReboundSpawn"
-spawn.SoundId = "rbxassetid://0"
-spawn.Volume = 4
-spawn.RollOffMaxDistance = 10000
-spawn.RollOffMinDistance = 450
-spawn:Play()
+    local close = Instance.new("Sound")
+close.Parent = entityModel.PrimaryPart
+close.Name = "Close"
+close.SoundId = "rbxassetid://5348162330"
+close.Volume = 0.7
+close.RollOffMaxDistance = 20
+close.RollOffMinDistance = 5
+close.Looped = true
+close:Play()
     local move = GetGitSound("https://github.com/check78/worldcuuuup/blob/main/DoomBegin.mp3?raw=true","Reboun")
     move.Parent = entityModel.PrimaryPart
     move.Name = "ReboundMoving"
