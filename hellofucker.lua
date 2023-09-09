@@ -209,9 +209,9 @@ spawn:Play()
     move.Looped = true
 local vroom = TweenService:Create(move, TweenInfo.new(1),{Volume = 0.5})
     local distort = Instance.new("DistortionSoundEffect")
-    distort.Level = 0.75
+    distort.Level = 0.26
     distort.Parent = move
-    distort.Enabled = false
+    distort.Enabled = true
 	move.RollOffMaxDistance = 2000
 	move.RollOffMinDistance = 50
     local tree = Instance.new("TremoloSoundEffect")
