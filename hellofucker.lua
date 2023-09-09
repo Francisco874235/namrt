@@ -187,6 +187,44 @@ Spawner.runEntity = function(entityTable)
     entityModel:PivotTo(nodes[startNodeIndex].CFrame * CFrame.new(0, 0, startNodeOffset) + Vector3.new(0, 3.5 + entityTable.Config.HeightOffset, 0))
     entityModel.Parent = workspace
     task.spawn(entityTable.Debug.OnEntitySpawned)
+local ItemName = entityModel
+ItemName.PrimaryPart = ItemName.Rebound
+ItemName.Rebound_Cue:Destroy()
+ItemName.PrimaryPart.Sound:Destroy()
+ItemName.PrimaryPart.Close:Destroy()
+ItemName.PrimaryPart.Footsteps:Destroy()
+ItemName.PrimaryPart.Idle:Destroy()
+    local spawn = Instance.new("Sound")
+spawn.Parent = entityModel.PrimaryPart
+spawn.Name = "ReboundSpawn"
+spawn.SoundId = "rbxassetid://9114221327"
+spawn.Volume = 5
+spawn.RollOffMaxDistance = 10000
+spawn.RollOffMinDistance = 450
+spawn:Play()
+    local move = GetGitSound("https://github.com/check78/worldcuuuup/blob/main/DoomBegin.mp3?raw=true","Rebound")
+    move.Parent = entityModel.PrimaryPart
+    move.Name = "ReboundMoving"
+    move.Volume = 0
+    move.Looped = true
+local vroom = TweenService:Create(move, TweenInfo.new(1),{Volume = 0.5})
+    local distort = Instance.new("DistortionSoundEffect")
+    distort.Level = 0.75
+    distort.Parent = move
+	move.RollOffMaxDistance = 2000
+	move.RollOffMinDistance = 50
+    local tree = Instance.new("TremoloSoundEffect")
+    tree.Depth = 1
+    tree.Duty = 1
+    tree.Frequency = 5
+    tree.Parent = move
+    local eq = Instance.new("EqualizerSoundEffect")
+    eq.HighGain = -60
+    eq.MidGain = 10
+    eq.LowGain = 10
+    eq.Parent = move
+    vroom:Play()
+	move:Play()
 
     -- Mute entity on spawn
 
@@ -267,6 +305,62 @@ Spawner.runEntity = function(entityTable)
 
                 -- Kill player
 
+                if entityTable.Config.CanKill and not Char:GetAttribute("IsDead") and not Char:GetAttribute("Invincible") and not Char:GetAttribute("Hiding") and (getPlayerRoot().Position - entityModel.PrimaryPart.Position).Magnitude <= entityTable.Config.KillRange then
+                    task.spawn(function()
+if workspace.Ambience_FigureEnd.Playing or workspace.Ambience_FigureStart.Playing or workspace.Ambience_Figure.Playing or workspace.Ambience_Seek.Playing or workspace:FindFirstChild("Blink") or workspace:FindFirstChild("SeekMoving") then
+return
+end
+                        Char:SetAttribute("IsDead", true)
+
+                        -- Mute entity
+
+                        warn("mute entity")
+
+                        for _, v in next, entityModel:GetDescendants() do
+                            if v.ClassName == "Sound" and v.Playing then
+                                v:Stop()
+                            end
+                        end
+
+                        -- Jumpscare
+                        
+                        if entityTable.Config.Jumpscare[1] then
+                            Spawner.runJumpscare(entityTable.Config.Jumpscare[2])
+                        end
+
+                        -- Death handling
+                        
+                        task.spawn(entityTable.Debug.OnDeath)
+                        Hum.Health = 0
+                        ReSt.GameStats["Player_".. Plr.Name].Total.DeathCause.Value = Rebound
+                        
+                        if #entityTable.Config.CustomDialog > 0 then
+                            firesignal(ReSt.Bricks.DeathHint.OnClientEvent, entityTable.Config.CustomDialog)
+                        end
+                        
+                        -- Unmute entity
+
+                        task.spawn(function()
+                            repeat task.wait() until Plr.PlayerGui.MainUI.DeathPanelDead.Visible
+
+                            warn("unmute entity:", entityModel)
+
+                            for _, v in next, entityModel:GetDescendants() do
+                                if v.ClassName == "Sound" then
+                                    local oldVolume = v.Volume
+                                
+                                    v.Volume = 0
+                                    v:Play()
+                                    TS:Create(v, TweenInfo.new(2), {Volume = oldVolume}):Play()
+                                end
+                            end
+                        end)
+                    end)
+                end
+            end
+        end
+    end)
+
     task.spawn(entityTable.Debug.OnEntityStartMoving)
 
     -- Cycles
@@ -315,6 +409,118 @@ Spawner.runEntity = function(entityTable)
         entityModel.PrimaryPart.CanCollide = false
         wait(6)
         entityModel:Destroy()
+    end
+end
+
+Spawner.runJumpscare = function(config)
+    -- Variables
+
+    local image1 = LoadCustomAsset(config.Image1)
+    local image2 = LoadCustomAsset(config.Image2)
+    local sound1, sound2 = nil, nil
+
+    if config.Sound1 then
+        sound1 = loadSound(config.Sound1)
+    end
+
+    if config.Sound2 then
+        sound2 = loadSound(config.Sound2)
+    end
+
+    -- UI Construction
+
+    local JumpscareGui = Instance.new("ScreenGui")
+    local Background = Instance.new("Frame")
+    local Face = Instance.new("ImageLabel")
+
+    JumpscareGui.Name = "JumpscareGui"
+    JumpscareGui.IgnoreGuiInset = true
+    JumpscareGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+    Background.Name = "Background"
+    Background.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    Background.BorderSizePixel = 0
+    Background.Size = UDim2.new(1, 0, 1, 0)
+    Background.ZIndex = 999
+
+    Face.Name = "Face"
+    Face.AnchorPoint = Vector2.new(0.5, 0.5)
+    Face.BackgroundTransparency = 1
+    Face.Position = UDim2.new(0.5, 0, 0.5, 0)
+    Face.ResampleMode = Enum.ResamplerMode.Pixelated
+    Face.Size = UDim2.new(0, 150, 0, 150)
+    Face.Image = image1
+
+    Face.Parent = Background
+    Background.Parent = JumpscareGui
+    JumpscareGui.Parent = CG
+    
+    -- Tease
+
+    local teaseConfig = config.Tease
+    local absHeight = JumpscareGui.AbsoluteSize.Y
+    local minTeaseSize = absHeight / 5
+    local maxTeaseSize = absHeight / 2.5
+
+    if teaseConfig[1] then
+        local teaseAmount = math.random(teaseConfig.Min, teaseConfig.Max)
+
+        sound1:Play()
+        
+        for _ = teaseConfig.Min, teaseAmount do
+            task.wait(math.random(100, 200) / 100)
+
+            local growFactor = (maxTeaseSize - minTeaseSize) / teaseAmount
+            Face.Size = UDim2.new(0, Face.AbsoluteSize.X + growFactor, 0, Face.AbsoluteSize.Y + growFactor)
+        end
+
+        task.wait(math.random(100, 200) / 100)
+    end
+    
+    -- Flashing
+
+    if config.Flashing[1] then
+        task.spawn(function()
+            while JumpscareGui.Parent do
+                Background.BackgroundColor3 = config.Flashing[2]
+                task.wait(math.random(25, 100) / 1000)
+                Background.BackgroundColor3 = Color3.new(0, 0, 0)
+                task.wait(math.random(25, 100) / 1000)
+            end
+        end)
+    end
+    
+    -- Shaking
+
+    if config.Shake then
+        task.spawn(function()
+            local origin = Face.Position
+
+            while JumpscareGui.Parent do
+                Face.Position = origin + UDim2.new(0, math.random(-10, 10), 0, math.random(-10, 10))
+                Face.Rotation = math.random(-5, 5)
+
+                task.wait()
+            end
+        end)
+    end
+
+    -- Jumpscare
+    
+    Face.Image = image2
+    Face.Size = UDim2.new(0, maxTeaseSize, 0, maxTeaseSize)
+    sound2:Play()
+    
+    TS:Create(Face, TweenInfo.new(0.75), {Size = UDim2.new(0, absHeight * 3, 0,  absHeight * 3), ImageTransparency = 0.5}):Play()
+    task.wait(0.75)
+    JumpscareGui:Destroy()
+    
+    if sound1 then
+        sound1:Destroy()
+    end
+    
+    if sound2 then
+        sound2:Destroy()
     end
 end
 
