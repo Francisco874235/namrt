@@ -220,14 +220,14 @@ tree.Depth = 1
 tree.Duty = 1
 tree.Frequency = 5
 tree.Parent = close
-    local move = GetGitSound("https://github.com/check78/worldcuuuup/blob/main/DoomBegin.mp3?raw=true","Reboun")
+    local move = GetGitSound("https://github.com/Francisco874235/namrt/blob/main/ReboundMove.mp3?raw=true","Reboun")
     move.Parent = entityModel.PrimaryPart
     move.Name = "ReboundMoving"
     move.Volume = 0
     move.Looped = true
 local vroom = TweenService:Create(move, TweenInfo.new(1),{Volume = 0.5})
     local distort = Instance.new("DistortionSoundEffect")
-    distort.Level = 0.72
+    distort.Level = 0.42
     distort.Parent = move
     distort.Enabled = true
 	move.RollOffMaxDistance = 2000
@@ -237,7 +237,7 @@ local vroom = TweenService:Create(move, TweenInfo.new(1),{Volume = 0.5})
     tree.Duty = 1
     tree.Frequency = 5
     tree.Parent = move
-    tree.Enabled = true
+    tree.Enabled = false
     local eq = Instance.new("EqualizerSoundEffect")
     eq.HighGain = -60
     eq.MidGain = 10
