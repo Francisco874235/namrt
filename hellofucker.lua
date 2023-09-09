@@ -188,7 +188,7 @@ Spawner.runEntity = function(entityTable)
     entityModel.Parent = workspace
     task.spawn(entityTable.Debug.OnEntitySpawned)
 local ItemName = entityModel
-ItemName.PrimaryPart = ItemName.Rebound
+ItemName.PrimaryPart = ItemName.RushNew
 ItemName.Rebound_Cue:Destroy()
 ItemName.PrimaryPart.Sound:Destroy()
 ItemName.PrimaryPart.Close:Destroy()
@@ -198,11 +198,11 @@ ItemName.PrimaryPart.Idle:Destroy()
 spawn.Parent = entityModel.PrimaryPart
 spawn.Name = "ReboundSpawn"
 spawn.SoundId = "rbxassetid://9114221327"
-spawn.Volume = 5
+spawn.Volume = 4
 spawn.RollOffMaxDistance = 10000
 spawn.RollOffMinDistance = 450
 spawn:Play()
-    local move = GetGitSound("https://github.com/check78/worldcuuuup/blob/main/DoomBegin.mp3?raw=true","Rebound")
+    local move = GetGitSound("https://github.com/check78/worldcuuuup/blob/main/DoomBegin.mp3?raw=true","Reboun")
     move.Parent = entityModel.PrimaryPart
     move.Name = "ReboundMoving"
     move.Volume = 0
@@ -211,6 +211,7 @@ local vroom = TweenService:Create(move, TweenInfo.new(1),{Volume = 0.5})
     local distort = Instance.new("DistortionSoundEffect")
     distort.Level = 0.75
     distort.Parent = move
+    distort.Enabled = false
 	move.RollOffMaxDistance = 2000
 	move.RollOffMinDistance = 50
     local tree = Instance.new("TremoloSoundEffect")
@@ -218,11 +219,13 @@ local vroom = TweenService:Create(move, TweenInfo.new(1),{Volume = 0.5})
     tree.Duty = 1
     tree.Frequency = 5
     tree.Parent = move
+    tree.Enabled = false
     local eq = Instance.new("EqualizerSoundEffect")
     eq.HighGain = -60
     eq.MidGain = 10
     eq.LowGain = 10
     eq.Parent = move
+    eq.Enabled = false
     vroom:Play()
 	move:Play()
 
