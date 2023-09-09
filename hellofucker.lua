@@ -197,7 +197,7 @@ ItemName.PrimaryPart.Idle:Destroy()
     local spawn = Instance.new("Sound")
 spawn.Parent = entityModel.PrimaryPart
 spawn.Name = "ReboundSpawn"
-spawn.SoundId = "rbxassetid://9114221327"
+spawn.SoundId = "rbxassetid://0"
 spawn.Volume = 4
 spawn.RollOffMaxDistance = 10000
 spawn.RollOffMinDistance = 450
@@ -209,7 +209,7 @@ spawn:Play()
     move.Looped = true
 local vroom = TweenService:Create(move, TweenInfo.new(1),{Volume = 0.5})
     local distort = Instance.new("DistortionSoundEffect")
-    distort.Level = 0.45
+    distort.Level = 0.63
     distort.Parent = move
     distort.Enabled = true
 	move.RollOffMaxDistance = 2000
