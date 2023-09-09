@@ -203,6 +203,23 @@ close.RollOffMaxDistance = 20
 close.RollOffMinDistance = 5
 close.Looped = true
 close:Play()
+local distort = Instance.new("DistortionSoundEffect")
+distort.Level = 0.75
+distort.Parent = close
+local distort = Instance.new("DistortionSoundEffect")
+distort.Level = 0.75
+distort.Parent = close
+local pitch = Instance.new("PitchShiftSoundEffect")
+pitch.Octave = 0.5
+pitch.Parent = close
+local pitch = Instance.new("PitchShiftSoundEffect")
+pitch.Octave = 0.5
+pitch.Parent = close
+local tree = Instance.new("TremoloSoundEffect")
+tree.Depth = 1
+tree.Duty = 1
+tree.Frequency = 5
+tree.Parent = close
     local move = GetGitSound("https://github.com/check78/worldcuuuup/blob/main/DoomBegin.mp3?raw=true","Reboun")
     move.Parent = entityModel.PrimaryPart
     move.Name = "ReboundMoving"
