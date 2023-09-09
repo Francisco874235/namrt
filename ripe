@@ -4,8 +4,7 @@ local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(sha
 	camara.CFrame = camara.CFrame * shakeCf
 end)
 camShake:Start()
-camShake:ShakeOnce(2,2.5,2,2.5,2,2.5,2,2.5,2,2,2.5,2,2.5,2,2.5,2,2.5,2)
-
+camShake:ShakeOnce(5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5)
 local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/check78/Endless-Doors-In-Doors/main/ModifiedSpawnerTest.lua"))()
 
 
@@ -66,6 +65,14 @@ local entityTable = Spawner.createEntity({
 -----[[  Debug -=- Advanced  ]]-----
 entityTable.Debug.OnEntitySpawned = function()
     print("Entity has spawned:", entityTable)
+local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
+local camara = game.Workspace.CurrentCamera
+local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(shakeCf)
+	camara.CFrame = camara.CFrame * shakeCf
+end)
+camShake:WaitForChild("Door")
+camShake:Start()
+camShake:ShakeOnce(4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4)
     workspace.CurrentRooms[game.ReplicatedStorage.GameData.LatestRoom.Value]:WaitForChild("Door").ClientOpen:FireServer()
 end
 
