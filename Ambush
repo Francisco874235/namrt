@@ -4,9 +4,9 @@ local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/check
 -- Create entity
 local entityTable = Spawner.createEntity({
     CustomName = "AmbushMoving", -- Custom name of your entity
-    Model = "rbxassetid://14710179712", -- Can be GitHub file or rbxassetid
-    Speed = 320, -- Percentage, 100 = default Rush speed
-    DelayTime = 4, -- Time before starting cycles (seconds)
+    Model = "rbxassetid://12668578812", -- Can be GitHub file or rbxassetid
+    Speed = 370, -- Percentage, 100 = default Rush speed
+    DelayTime = 6, -- Time before starting cycles (seconds)
     HeightOffset = 0,
     CanKill = true,
     KillRange = 50,
@@ -23,7 +23,7 @@ local entityTable = Spawner.createEntity({
     },
     CamShake = {
         true, -- Enabled/Disabled
-        {15, 20, 0.1, 1}, -- Shake values (don't change if you don't know)
+        {12, 20, 0.1, 1}, -- Shake values (don't change if you don't know)
         100, -- Shake start distance (from Entity to you)
     },
     Jumpscare = {
