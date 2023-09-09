@@ -223,7 +223,7 @@ tree.Parent = close
     local move = GetGitSound("https://github.com/Francisco874235/namrt/blob/main/ReboundMove.mp3?raw=true","Reboun")
     move.Parent = entityModel.PrimaryPart
     move.Name = "ReboundMoving"
-    move.Volume = 0
+    move.Volume = 4
     move.Looped = true
 local vroom = TweenService:Create(move, TweenInfo.new(1),{Volume = 0.5})
     local distort = Instance.new("DistortionSoundEffect")
