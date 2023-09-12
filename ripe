@@ -1,20 +1,13 @@
-local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
-local camara = game.Workspace.CurrentCamera
-local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(shakeCf)
-	camara.CFrame = camara.CFrame * shakeCf
-end)
-camShake:Start()
-camShake:ShakeOnce(5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5)
-local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/check78/Endless-Doors-In-Doors/main/ModifiedSpawnerTest.lua"))()
+local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/Francisco874235/namrt/main/ficker"))()
 
 
 -- Create entity
 local entityTable = Spawner.createEntity({
     CustomName = "Death", -- Custom name of your entity
-    Model = "rbxassetid://14709793472", -- Can be GitHub file or rbxassetid
+    Model = "rbxassetid://14760361058", -- Can be GitHub file or rbxassetid
     Speed = 200, -- Percentage, 100 = default Rush speed
-    DelayTime = 8.5, -- Time before starting cycles (seconds)
-    HeightOffset = 5.98,
+    DelayTime = 8, -- Time before starting cycles (seconds)
+    HeightOffset = 6,
     CanKill = true,
     KillRange = 50,
     BackwardsMovement = false,
@@ -30,11 +23,11 @@ local entityTable = Spawner.createEntity({
     },
     CamShake = {
         true, -- Enabled/Disabled
-        {14, 35, 0.05, 1}, -- Shake values (don't change if you don't know)
+        {15, 37, 1, 1}, -- Shake values (don't change if you don't know)
         100, -- Shake start distance (from Entity to you)
     },
     Jumpscare = {
-        false, -- Enabled/Disabled
+        true, -- Enabled/Disabled
         {
             Image1 = "rbxassetid://10483855823", -- Image1 url
             Image2 = "rbxassetid://10483999903", -- Image2 url
@@ -58,22 +51,14 @@ local entityTable = Spawner.createEntity({
             },
         },
     },
-    CustomDialog = {"You Died To Ripper", "Try To Hide Don't See Him!", "they kill far away from you!", "be attempt by the scream!"}, -- Custom death message
+    CustomDialog = {"You Died To Ripper.....", "be attetion by the scream", "hide or else....", "they will kill you just hide in a closet!"}, -- Custom death message
 })
 
 
 -----[[  Debug -=- Advanced  ]]-----
 entityTable.Debug.OnEntitySpawned = function()
     print("Entity has spawned:", entityTable)
-local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
-local camara = game.Workspace.CurrentCamera
-local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(shakeCf)
-	camara.CFrame = camara.CFrame * shakeCf
-end)
-camShake:WaitForChild("Door")
-camShake:Start()
-camShake:ShakeOnce(4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4)
-    workspace.CurrentRooms[game.ReplicatedStorage.GameData.LatestRoom.Value]:WaitForChild("Door").ClientOpen:FireServer()
+    Ripper:WaitForChild("Door")["Door Murder"]:Play()
 end
 
 entityTable.Debug.OnEntityDespawned = function()
